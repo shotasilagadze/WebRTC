@@ -1,0 +1,22 @@
+{
+  "name": "webrtc",
+  "version": "1.0.0",
+  "description": "WebRTC ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shotasilagadze/WebRTC.git"
+  },
+  "author": "Shota Silagadze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shotasilagadze/WebRTC/issues"
+  },
+  "homepage": "https://github.com/shotasilagadze/WebRTC#readme",
+  "dependencies": {
+    "ws": "^3.3.1"
+  }
+}
