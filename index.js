@@ -1,16 +1,23 @@
-const express = require('express')
-const app = express();
-app.set('view engine', 'ejs');
-app.use(express.static('assets'));
+var https = require('https');
+var fs = require('fs');
+var express = require('express');
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
 
-app.get('/', function(req, res) {
 
-	
+ 
+var options = {
+  key: fs.readFileSync('privateKey.key'),
+  cert: fs.readFileSync('certificate.crt')
+};
+ 
+https.createServer(options, function (req, res) {
+  res.writeHead(200);
+    res.end("hello world\n");
+  
 
-	res.render('video');
-	
-});
-
-app.listen(9090, () => console.log('Example app listening on port 3000!'))
+}).listen(9090);
+ 
+console.log("listening to port 8000");
