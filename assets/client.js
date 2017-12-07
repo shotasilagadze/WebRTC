@@ -79,27 +79,21 @@ function call() {
   var servers = null;
   // Add pc1 to global scope so it's accessible from the browser console
   window.pc1 = pc1 = new RTCPeerConnection(servers);
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-var pp = new RTCPeerConnection();
-var iceServers = pp.defaultIceServers;
-  console.log(iceServers);
+
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
+    console.log("onice1");
     onIceCandidate(pc1, e);
   };
   // Add pc2 to global scope so it's accessible from the browser console
   window.pc2 = pc2 = new RTCPeerConnection(servers);
   trace('Created remote peer connection object pc2');
   pc2.onicecandidate = function(e) {
+    console.log("onice2");
     onIceCandidate(pc2, e);
   };
-  pc1.oniceconnectionstatechange = function(e) {
-    onIceStateChange(pc1, e);
-  };
-  pc2.oniceconnectionstatechange = function(e) {
-    onIceStateChange(pc2, e);
-  };
+
   pc2.onaddstream = gotRemoteStream;
 
   pc1.addStream(localStream);
@@ -182,34 +176,18 @@ function onCreateAnswerSuccess(desc) {
 
 function onIceCandidate(pc, event) {
   if (event.candidate) {
+    console.log(getName(pc));
+    console.log(event.candidate);
     getOtherPc(pc).addIceCandidate(
+      
       new RTCIceCandidate(event.candidate)
-    ).then(
-      function() {
-        onAddIceCandidateSuccess(pc);
-      },
-      function(err) {
-        onAddIceCandidateError(pc, err);
-      }
     );
+    
     trace(getName(pc) + ' ICE candidate: \n' + event.candidate.candidate);
   }
 }
 
-function onAddIceCandidateSuccess(pc) {
-  trace(getName(pc) + ' addIceCandidate success');
-}
 
-function onAddIceCandidateError(pc, error) {
-  trace(getName(pc) + ' failed to add ICE Candidate: ' + error.toString());
-}
-
-function onIceStateChange(pc, event) {
-  if (pc) {
-    trace(getName(pc) + ' ICE state: ' + pc.iceConnectionState);
-    console.log('ICE state change event: ', event);
-  }
-}
 
 function hangup() {
   trace('Ending call');
@@ -223,13 +201,5 @@ function hangup() {
 
 
 function trace(text) {
-  if (text[text.length - 1] === '\n') {
-    text = text.substring(0, text.length - 1);
-  }
-  if (window.performance) {
-    var now = (window.performance.now() / 1000).toFixed(3);
-    console.log(now + ': ' + text);
-  } else {
-    console.log(text);
-  }
+ 
 }

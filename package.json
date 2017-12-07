@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/shotasilagadze/WebRTC#readme",
   "dependencies": {
+    "socket.io": "^2.0.4",
     "ws": "^3.3.1"
   }
 }
