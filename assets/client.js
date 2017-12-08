@@ -94,7 +94,7 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-
+    console.log({'es' : e});
     socket.emit('add ice candidate',e.candidate);
   };
 
@@ -194,7 +194,7 @@ function onCreateAnswerSuccess(desc) {
 socket.on('set answer desc', function(data,callback){ 
 
   trace('pc1 setRemoteDescription start');
-  pc1.setRemoteDescription(desc).then(
+  pc1.setRemoteDescription(data).then(
     function() {
       onSetRemoteSuccess(pc1);
     },
