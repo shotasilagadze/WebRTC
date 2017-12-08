@@ -74,6 +74,10 @@ function start() {
 //create our main instance
 window.pc1 = pc1 = new RTCPeerConnection(null);
 
+function handleAddStreamEvent(event) {
+  alert('3333');
+}
+
 
 function call() {
   callButton.disabled = true;
@@ -177,6 +181,7 @@ function onSetSessionDescriptionError(error) {
 }
 
 function gotRemoteStream(e) {
+  alert('333');
   // Add remoteStream to global scope so it's accessible from the browser console
   window.remoteStream = remoteVideo.srcObject = e.stream;
   trace('pc2 received remote stream');
