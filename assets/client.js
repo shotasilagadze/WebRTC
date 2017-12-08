@@ -74,6 +74,7 @@ function start() {
 //create our main instance
 window.pc1 = pc1 = new RTCPeerConnection(null);
 
+  start();
 
 pc1.onaddstream = gotRemoteStream;
 
@@ -150,7 +151,6 @@ function onCreateOfferSuccess(desc) {
 }
 
 socket.on('set description', function(data,callback) {
-  start();
 
   pc1.addStream(localStream);
 
