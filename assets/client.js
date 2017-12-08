@@ -144,7 +144,7 @@ socket.on('set description', function(data,callback) {
       )
   
 
-})
+})  
 
 function onSetLocalSuccess(pc) {
   trace(getName(pc) + ' setLocalDescription complete');
@@ -192,10 +192,10 @@ socket.on('set answer desc', function(data,callback){
 
 socket.on('add ice candidate',function (data,callback) {
   pc1.addIceCandidate(
-    new RTCIceCandidate(data.candidate);
+    new RTCIceCandidate(data.candidate)
   );
 
-})
+});
 // function onIceCandidate(pc, event) {
 //   if (event.candidate) {
 //     console.log(getName(pc));
