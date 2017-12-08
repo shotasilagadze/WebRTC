@@ -7,13 +7,14 @@ var signaling = io.of('/signaling');
 
 server.listen(process.env.SERVER_PORT);
 app.set('view engine', 'ejs');
-app.set('view engine', 'ejs');
 app.use(express.static('assets'));
 
 
 
 signaling.on('connection',function(socket){
- 	console.log("Connected");
+
+	
+
 });
 
 
