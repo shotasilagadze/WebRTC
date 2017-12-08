@@ -9,22 +9,19 @@ server.listen(process.env.SERVER_PORT);
 app.set('view engine', 'ejs');
 app.use(express.static('assets'));
 
-
-
 signaling.on('connection',function(socket){
 
 	socket.on('add ice candidate', function(data) {
-		console.log(data);
+		socket.broadcast.emit('add ice candidate',data);
 	});
 
 	socket.on('set description', function(data) {
-		console.log(data);
+		socket.broadcast.emit('set description',data);
 	});
 
 	socket.on('set answer desc', function(data) {
-		console.log(data);
-	})
-
+		socket.broadcast.emit('set answer desc',data);
+	});
 
 });
 
