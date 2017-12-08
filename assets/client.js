@@ -71,6 +71,10 @@ function start() {
   });
 }
 
+//create our main instance
+window.pc1 = pc1 = new RTCPeerConnection(servers);
+
+
 function call() {
   callButton.disabled = true;
   hangupButton.disabled = false;
@@ -86,7 +90,6 @@ function call() {
   }
   var servers = null;
   // Add pc1 to global scope so it's accessible from the browser console
-  window.pc1 = pc1 = new RTCPeerConnection(servers);
 
 
   trace('Created local peer connection object pc');
