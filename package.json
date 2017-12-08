@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/shotasilagadze/WebRTC#readme",
   "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "fs": "0.0.1-security",
+    "node-env-file": "^0.1.8",
     "socket.io": "^2.0.4",
     "ws": "^3.3.1"
   }

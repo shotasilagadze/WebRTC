@@ -1,5 +1,6 @@
 'use strict';
 
+var socket = io(IP + '/signaling');
 var startButton = document.getElementById('startButton');
 var callButton = document.getElementById('callButton');
 var hangupButton = document.getElementById('hangupButton');
@@ -83,18 +84,9 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-    console.log("onice1");
-    onIceCandidate(pc1, e);
-  };
-  // Add pc2 to global scope so it's accessible from the browser console
-  window.pc2 = pc2 = new RTCPeerConnection(servers);
-  trace('Created remote peer connection object pc2');
-  pc2.onicecandidate = function(e) {
-    console.log("onice2");
-    onIceCandidate(pc2, e);
+    socket.emit('add ice candidate',e);
   };
 
-  pc2.onaddstream = gotRemoteStream;
 
   pc1.addStream(localStream);
   trace('Added local stream to pc1');
@@ -122,21 +114,39 @@ function onCreateOfferSuccess(desc) {
     onSetSessionDescriptionError
   );
   trace('pc2 setRemoteDescription start');
-  pc2.setRemoteDescription(desc).then(
-    function() {
-      onSetRemoteSuccess(pc2);
-    },
-    onSetSessionDescriptionError
-  );
-  trace('pc2 createAnswer start');
+
+  socket.emit('set description',desc);
+  // pc2.setRemoteDescription(desc).then(
+  //   function() {
+  //     onSetRemoteSuccess(pc2);
+  //   },
+  //   onSetSessionDescriptionError
+  // );
   // Since the 'remote' side has no media stream we need
   // to pass in the right constraints in order for it to
   // accept the incoming offer of audio and video.
-  pc2.createAnswer().then(
-    onCreateAnswerSuccess,
-    onCreateSessionDescriptionError
-  );
+  // pc2.createAnswer().then(
+  //   onCreateAnswerSuccess,
+  //   onCreateSessionDescriptionError
+  // );
 }
+
+socket.on('set description', function(data,callback) {
+  pc1.setRemoteDescription(data).then(
+      function() {
+        console.log('remote description added');
+      },
+      console.log('remote description failed to be set');
+    )
+
+  pc1.createAnswer() {
+    then(
+        onCreateAnswerSuccess,
+        onCreateSessionDescriptionError
+      )
+  }
+
+})
 
 function onSetLocalSuccess(pc) {
   trace(getName(pc) + ' setLocalDescription complete');
@@ -159,12 +169,19 @@ function gotRemoteStream(e) {
 function onCreateAnswerSuccess(desc) {
   trace('Answer from pc2:\n' + desc.sdp);
   trace('pc2 setLocalDescription start');
-  pc2.setLocalDescription(desc).then(
+  socket.emit('set answer desc',desc);
+
+  pc1.setLocalDescription(desc).then(
     function() {
       onSetLocalSuccess(pc2);
     },
     onSetSessionDescriptionError
   );
+  
+}
+
+socket.on('set answer desc', function(data,callback){ 
+
   trace('pc1 setRemoteDescription start');
   pc1.setRemoteDescription(desc).then(
     function() {
@@ -172,21 +189,27 @@ function onCreateAnswerSuccess(desc) {
     },
     onSetSessionDescriptionError
   );
-}
+})
 
-function onIceCandidate(pc, event) {
-  if (event.candidate) {
-    console.log(getName(pc));
-    console.log(event.candidate);
-    getOtherPc(pc).addIceCandidate(
+
+socket.on('add ice candidate',function (data,callback) {
+  pc1.addIceCandidate(
+    new RTCIceCandidate(data.candidate);
+  );
+
+})
+// function onIceCandidate(pc, event) {
+//   if (event.candidate) {
+//     console.log(getName(pc));
+//     console.log(event.candidate);
+//     getOtherPc(pc).addIceCandidate(
       
-      new RTCIceCandidate(event.candidate)
-    );
+//       new RTCIceCandidate(event.candidate)
+//     );
     
-    trace(getName(pc) + ' ICE candidate: \n' + event.candidate.candidate);
-  }
-}
-
+//     trace(getName(pc) + ' ICE candidate: \n' + event.candidate.candidate);
+//   }
+// }
 
 
 function hangup() {
@@ -203,3 +226,7 @@ function hangup() {
 function trace(text) {
  
 }
+
+
+
+

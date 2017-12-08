@@ -1,10 +1,27 @@
-const express = require('express')
-const app = express()
-app.use(express.static('assets'))
+var express = require('express');
+var env = require('dotenv').config();
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+var signaling = io.of('/signaling');
 
-
+server.listen(process.env.SERVER_PORT);
 app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');
+app.use(express.static('assets'));
 
-app.get('/', (req, res) => res.render('video'))
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+
+signaling.on('connection',function(socket){
+ 	console.log("Connected");
+});
+
+
+app.get('/',function(req,res) {
+	res.render('video',{ IP : process.env.IP });
+});
+
+
+
+
+
