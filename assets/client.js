@@ -94,9 +94,12 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-    console.log("EEEEEEEEEEEEEEE");
-    console.log(e);
-    socket.emit('add ice candidate',e.candidate);
+    
+    socket.emit('add ice candidate',{
+      type: "new-ice-candidate",
+      target: targetUsername,
+      candidate: event.candidate
+    });
   };
 
 
