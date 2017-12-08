@@ -203,6 +203,8 @@ socket.on('set answer desc', function(data,callback){
 
 
 socket.on('add ice candidate',function (data,callback) {
+  console.log('ice candidate');
+  console.log(data);
   pc1.addIceCandidate(
     new RTCIceCandidate(data.candidate)
   );
