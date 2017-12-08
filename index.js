@@ -13,7 +13,18 @@ app.use(express.static('assets'));
 
 signaling.on('connection',function(socket){
 
-	
+	socket.on('add ice candidate', function(data) {
+		console.log(data);
+	});
+
+	socket.on('set description', function(data) {
+		console.log(data);
+	});
+
+	socket.on('set answer desc', function(data) {
+		console.log(data);
+	})
+
 
 });
 
