@@ -135,9 +135,8 @@ socket.on('set description', function(data,callback) {
   pc1.setRemoteDescription(data).then(
       function() {
         console.log('remote description added');
-      },
-      console.log('remote description failed to be set');
-    )
+      }
+  )
 
   pc1.createAnswer() {
     then(
@@ -212,7 +211,7 @@ socket.on('add ice candidate',function (data,callback) {
 // }
 
 
-function hangup() {
+function hangup() { 
   trace('Ending call');
   pc1.close();
   pc2.close();
