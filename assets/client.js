@@ -10,6 +10,13 @@ startButton.onclick = start;
 callButton.onclick = call;
 hangupButton.onclick = hangup;
 
+socket.on('connect', function () {
+
+   console.log('zzzz');
+
+});
+
+
 var startTime;
 var localVideo = document.getElementById('localVideo');
 var remoteVideo = document.getElementById('remoteVideo');
