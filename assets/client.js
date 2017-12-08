@@ -150,8 +150,11 @@ function onCreateOfferSuccess(desc) {
 }
 
 socket.on('set description', function(data,callback) {
-  console.log('set sent description');
-  console.log(data);
+  start();
+
+  pc1.addStream(localStream);
+
+
   pc1.setRemoteDescription(data).then(
       function() {
         console.log('remote description added');
