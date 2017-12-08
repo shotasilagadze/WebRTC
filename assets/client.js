@@ -72,7 +72,7 @@ function start() {
 }
 
 //create our main instance
-window.pc1 = pc1 = new RTCPeerConnection(servers);
+window.pc1 = pc1 = new RTCPeerConnection(null);
 
 
 function call() {
