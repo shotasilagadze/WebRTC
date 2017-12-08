@@ -74,10 +74,8 @@ function start() {
 //create our main instance
 window.pc1 = pc1 = new RTCPeerConnection(null);
 
-function handleAddStreamEvent(event) {
-  alert('3333');
-}
 
+pc1.onaddstream = gotRemoteStream;
 
 function call() {
   callButton.disabled = true;
