@@ -97,8 +97,8 @@ function call() {
     
     socket.emit('add ice candidate',{
       type: "new-ice-candidate",
-      target: targetUsername,
-      candidate: event.candidate
+      target: 'shota',
+      candidate: e.candidate
     });
   };
 
