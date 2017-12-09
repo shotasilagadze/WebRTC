@@ -72,12 +72,11 @@ function start() {
 }
 
 //create our main instance
-window.pc1 = pc1 = new RTCPeerConnection({'iceServers': [
-  createIceServer(isChrome
-    ? 'stun:stun.l.google.com:19302'
-    : 'stun:23.21.150.121', null, null)
-]}, 
-{optional: [ {"DtlsSrtpKeyAgreement": true}]});
+window.pc1 = pc1 = new RTCPeerConnection({
+  'iceServers': [{
+    'urls': 'stun:stun.example.org'
+  }]
+});
 
   start();
 
