@@ -101,7 +101,7 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-    
+    console.log(e);
     if (e.candidate)
     socket.emit('add ice candidate',{
       type: "new-ice-candidate",
@@ -219,8 +219,6 @@ socket.on('set answer desc', function(data,callback){
 
 
 socket.on('add ice candidate',function (data,callback) {
-  console.log('ice candidate');
-  console.log(data);
   pc1.addIceCandidate(
     new RTCIceCandidate(data.candidate)
   );
