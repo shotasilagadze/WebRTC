@@ -1,6 +1,7 @@
 'use strict';
 
 var socket = io(IP + '/signaling');
+console.log(IP+'/signaling')
 var startButton = document.getElementById('startButton');
 var callButton = document.getElementById('callButton');
 var hangupButton = document.getElementById('hangupButton');
