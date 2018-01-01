@@ -1,6 +1,6 @@
 'use strict';
 
-var socket = io(IP + '/signaling');
+var socket = io(process.env.IP + '/signaling');
 var startButton = document.getElementById('startButton');
 var callButton = document.getElementById('callButton');
 var hangupButton = document.getElementById('hangupButton');
@@ -78,7 +78,7 @@ window.pc1 = pc1 = new RTCPeerConnection({
   }]
 });
 
-  start();
+start();
 
 pc1.onaddstream = gotRemoteStream;
 
