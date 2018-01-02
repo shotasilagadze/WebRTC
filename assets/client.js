@@ -168,6 +168,16 @@ socket.on('set description', function(data,callback) {
   pc1.addStream(localStream);
   console.log("AAAAAAAAAAAAA");
 
+  pc1.setRemoteDescription(data).then(
+      function() {
+        console.log('remote description added');
+      }
+  );
+
+  pc1.createAnswer().then(
+        onCreateAnswerSuccess,
+        onCreateSessionDescriptionError
+      )
   
 
 })  
@@ -177,7 +187,7 @@ function onSetLocalSuccess(pc) {
 }
 
 function onSetRemoteSuccess(pc) {
-  console.log("OOO");
+  console.log("OOO")
   trace(getName(pc) + ' setRemoteDescription complete');
 }
 
