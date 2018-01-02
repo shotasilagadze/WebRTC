@@ -111,7 +111,6 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-    alert('777');
     if (e.candidate)
     socket.emit('add ice candidate',{
       type: "new-ice-candidate",
@@ -200,7 +199,7 @@ function onSetSessionDescriptionError(error) {
 }
 
 function gotRemoteStream(e) {
-  alert('333');
+
   // Add remoteStream to global scope so it's accessible from the browser console
   window.remoteStream = remoteVideo.srcObject = e.stream;
   trace('pc2 received remote stream');
