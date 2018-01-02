@@ -5,6 +5,7 @@ console.log(IP+'/signaling')
 var startButton = document.getElementById('startButton');
 var callButton = document.getElementById('callButton');
 var hangupButton = document.getElementById('hangupButton');
+var caller = true;
 callButton.disabled = true;
 hangupButton.disabled = true;
 startButton.onclick = start;
@@ -137,6 +138,8 @@ function onCreateSessionDescriptionError(error) {
   trace('Failed to create session description: ' + error.toString());
 }
 
+
+
 function onCreateOfferSuccess(desc) {
   trace('Offer from pc1\n' + desc.sdp);
   trace('pc1 setLocalDescription start');
@@ -167,8 +170,7 @@ function onCreateOfferSuccess(desc) {
 socket.on('set description', function(data,callback) {
 
   pc1.addStream(localStream);
-  console.log("AAAAAAAAAAAAA");
-
+  caller = false;
   console.log(data);
 
   pc1.setRemoteDescription(data).then(
@@ -199,7 +201,8 @@ function onSetSessionDescriptionError(error) {
 }
 
 function gotRemoteStream(e) {
-
+  if (caller==false) return;
+  console.log('3333');
   // Add remoteStream to global scope so it's accessible from the browser console
   window.remoteStream = remoteVideo.srcObject = e.stream;
   trace('pc2 received remote stream');
