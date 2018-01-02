@@ -210,6 +210,7 @@ function onCreateAnswerSuccess(desc) {
 
   pc1.setLocalDescription(desc).then(
     function() {
+      console.log("LOOOOOOOOOOCAL");
       onSetLocalSuccess(pc2);
     },
     onSetSessionDescriptionError
