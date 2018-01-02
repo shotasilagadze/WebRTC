@@ -173,11 +173,6 @@ socket.on('set description', function(data,callback) {
         console.log('remote description added');
       }
   );
-
-  pc1.createAnswer().then(
-        onCreateAnswerSuccess,
-        onCreateSessionDescriptionError
-      )
   
 
 })  
