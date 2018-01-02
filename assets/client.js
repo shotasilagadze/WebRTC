@@ -228,7 +228,9 @@ socket.on('set answer desc', function(data,callback){
 
 
 socket.on('add ice candidate',function (data,callback) {
+  console.log('NEW CANDIDATE',data.candidate);
   pc1.addIceCandidate(
+
     new RTCIceCandidate(data.candidate)
   );
 
