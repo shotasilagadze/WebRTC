@@ -74,12 +74,15 @@ function start() {
 
 var ice = {"iceServers": [
   {"url": "stun:stun.schlund.de"}, 
-  {"url": "turn:turnserver.com", "username": "user", "credential": "pass"} 
 ]};
 
 //create our main instance
 window.pc1 = pc1 = new RTCPeerConnection(ice);
 
+
+pc1.oniceconnectionstatechange = function(evt) { 
+  logStatus("ICE connection state change: " + evt.target.iceConnectionState);
+}
 start();
 
 pc1.onaddstream = gotRemoteStream;
