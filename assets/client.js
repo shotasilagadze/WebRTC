@@ -110,13 +110,13 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-    console.log(e);
     if (e.candidate)
     socket.emit('add ice candidate',{
       type: "new-ice-candidate",
       target: 'shota',
       candidate: e.candidate
     });
+  console.log('ICE CANDIDATE - ',e.candidate);
   };
 
 
