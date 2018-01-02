@@ -72,9 +72,14 @@ function start() {
   });
 }
 
-//create our main instance
-window.pc1 = pc1 = new RTCPeerConnection(null);
+var ice = null;
 
+//create our main instance
+window.pc1 = pc1 = new RTCPeerConnection(ice);
+
+pc1.oniceconnectionstatechange = function(evt) { 
+  console.log("ICE connection state change: " + evt.target.iceConnectionState);
+}
 start();
 
 pc1.onaddstream = gotRemoteStream;
@@ -98,13 +103,14 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
-    console.log(e);
+    alert('777');
     if (e.candidate)
     socket.emit('add ice candidate',{
       type: "new-ice-candidate",
       target: 'shota',
       candidate: e.candidate
     });
+  console.log('ICE CANDIDATE - ',e.candidate);
   };
 
 
@@ -154,7 +160,9 @@ function onCreateOfferSuccess(desc) {
 socket.on('set description', function(data,callback) {
 
   pc1.addStream(localStream);
+  console.log("AAAAAAAAAAAAA");
 
+  console.log(data);
 
   pc1.setRemoteDescription(data).then(
       function() {
@@ -175,6 +183,7 @@ function onSetLocalSuccess(pc) {
 }
 
 function onSetRemoteSuccess(pc) {
+  console.log("OOO")
   trace(getName(pc) + ' setRemoteDescription complete');
 }
 
@@ -192,19 +201,22 @@ function gotRemoteStream(e) {
 function onCreateAnswerSuccess(desc) {
   trace('Answer from pc2:\n' + desc.sdp);
   trace('pc2 setLocalDescription start');
-  socket.emit('set answer desc',desc);
 
   pc1.setLocalDescription(desc).then(
     function() {
+      console.log("LOOOOOOOOOOCAL");
       onSetLocalSuccess(pc2);
     },
     onSetSessionDescriptionError
   );
+
+  socket.emit('set answer desc',desc);
+
   
 }
 
 socket.on('set answer desc', function(data,callback){ 
-
+  console.log("answer received");
   trace('pc1 setRemoteDescription start');
   pc1.setRemoteDescription(data).then(
     function() {
@@ -216,7 +228,9 @@ socket.on('set answer desc', function(data,callback){
 
 
 socket.on('add ice candidate',function (data,callback) {
+  console.log('NEW CANDIDATE',data.candidate);
   pc1.addIceCandidate(
+
     new RTCIceCandidate(data.candidate)
   );
 
