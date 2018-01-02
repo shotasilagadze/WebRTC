@@ -81,7 +81,7 @@ window.pc1 = pc1 = new RTCPeerConnection(ice);
 
 
 pc1.oniceconnectionstatechange = function(evt) { 
-  logStatus("ICE connection state change: " + evt.target.iceConnectionState);
+  console.log("ICE connection state change: " + evt.target.iceConnectionState);
 }
 start();
 
