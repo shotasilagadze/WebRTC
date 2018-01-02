@@ -202,6 +202,7 @@ function gotRemoteStream(e) {
 }
 
 function onCreateAnswerSuccess(desc) {
+  console.log("BBBBBBBBB");
   trace('Answer from pc2:\n' + desc.sdp);
   trace('pc2 setLocalDescription start');
 
