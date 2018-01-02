@@ -168,11 +168,6 @@ socket.on('set description', function(data,callback) {
   pc1.addStream(localStream);
   console.log("AAAAAAAAAAAAA");
 
-  pc1.setRemoteDescription(data).then(
-      function() {
-        console.log('remote description added');
-      }
-  );
   
 
 })  
