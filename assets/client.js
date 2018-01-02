@@ -166,7 +166,7 @@ function onCreateOfferSuccess(desc) {
 socket.on('set description', function(data,callback) {
 
   pc1.addStream(localStream);
-
+  console.log("AAAAAAAAAAAAA");
 
   pc1.setRemoteDescription(data).then(
       function() {
@@ -204,7 +204,6 @@ function gotRemoteStream(e) {
 function onCreateAnswerSuccess(desc) {
   trace('Answer from pc2:\n' + desc.sdp);
   trace('pc2 setLocalDescription start');
-  socket.emit('set answer desc',desc);
 
   pc1.setLocalDescription(desc).then(
     function() {
@@ -212,6 +211,9 @@ function onCreateAnswerSuccess(desc) {
     },
     onSetSessionDescriptionError
   );
+
+  socket.emit('set answer desc',desc);
+
   
 }
 
