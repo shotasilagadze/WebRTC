@@ -187,6 +187,7 @@ function onSetLocalSuccess(pc) {
 }
 
 function onSetRemoteSuccess(pc) {
+  console.log("OOO");
   trace(getName(pc) + ' setRemoteDescription complete');
 }
 
