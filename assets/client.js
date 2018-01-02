@@ -202,7 +202,6 @@ function gotRemoteStream(e) {
 }
 
 function onCreateAnswerSuccess(desc) {
-  console.log("BBBBBBBBB");
   trace('Answer from pc2:\n' + desc.sdp);
   trace('pc2 setLocalDescription start');
 
@@ -219,7 +218,7 @@ function onCreateAnswerSuccess(desc) {
 }
 
 socket.on('set answer desc', function(data,callback){ 
-
+  console.log("answer received");
   trace('pc1 setRemoteDescription start');
   pc1.setRemoteDescription(data).then(
     function() {
