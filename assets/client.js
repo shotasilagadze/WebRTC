@@ -72,13 +72,15 @@ function start() {
   });
 }
 
-var ice = {[
+var ice =  {"iceServers":[
   {
-  url: 'turn:numb.viagenie.ca',
-  credential: 'paroli123',
-  username: 'silagadzeshota@gmail.com'
-}]
-};
+    url: 'turn:numb.viagenie.ca',
+    credential: 'paroli123',
+    username: 'silagadzeshota@gmail.com'
+  },
+]};
+
+
 
 //create our main instance
 window.pc1 = pc1 = new RTCPeerConnection(ice);
