@@ -73,7 +73,8 @@ function start() {
 }
 
 var ice = {"iceServers": [
-  {"url": "stun.schlund.de"},  
+  {"url": "stun:stun.schlund.de"}, 
+  {"url": "turn:turnserver.com", "username": "user", "credential": "pass"} 
 ]};
 
 //create our main instance
