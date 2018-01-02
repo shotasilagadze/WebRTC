@@ -73,7 +73,11 @@ function start() {
 }
 
 var ice = {"iceServers": [
-  {"url": "stun:stun.schlund.de"}, 
+  {
+  url: 'turn:numb.viagenie.ca',
+  credential: 'paroli123',
+  username: 'silagadzeshota@gmail.com'
+},
 ]};
 
 //create our main instance
