@@ -73,11 +73,7 @@ function start() {
 }
 
 //create our main instance
-window.pc1 = pc1 = new RTCPeerConnection({
-  'iceServers': [{
-    'urls': 'stun:stun.example.org'
-  }]
-});
+window.pc1 = pc1 = new RTCPeerConnection(null);
 
 start();
 
