@@ -104,6 +104,7 @@ function call() {
 
   trace('Created local peer connection object pc');
   pc1.onicecandidate = function(e) {
+    alert('777');
     if (e.candidate)
     socket.emit('add ice candidate',{
       type: "new-ice-candidate",
@@ -162,6 +163,8 @@ socket.on('set description', function(data,callback) {
   pc1.addStream(localStream);
   console.log("AAAAAAAAAAAAA");
 
+  console.log(data);
+
   pc1.setRemoteDescription(data).then(
       function() {
         console.log('remote description added');
@@ -202,6 +205,7 @@ function onCreateAnswerSuccess(desc) {
 
   pc1.setLocalDescription(desc).then(
     function() {
+      console.log("LOOOOOOOOOOCAL");
       onSetLocalSuccess(pc2);
     },
     onSetSessionDescriptionError
