@@ -82,7 +82,7 @@ var ice =  {"iceServers":[
 ]};
 
 
-function myfunction(va) {
+function myFunction(va) {
   var va = document.getElementById("rand").val();
 
   socket.emit('add',{x:va});
