@@ -82,7 +82,11 @@ var ice =  {"iceServers":[
 ]};
 
 
+function myfunction(va) {
+  var va = document.getElementById("rand").val();
 
+  socket.emit('add',{x:va});
+}
 //create our main instance
 window.pc1 = pc1 = new RTCPeerConnection(ice);
 
@@ -201,8 +205,6 @@ function onSetSessionDescriptionError(error) {
 }
 
 function gotRemoteStream(e) {
-  if (caller==false) return;
-  console.log('3333');
   // Add remoteStream to global scope so it's accessible from the browser console
   window.remoteStream = remoteVideo.srcObject = e.stream;
   trace('pc2 received remote stream');
@@ -214,7 +216,6 @@ function onCreateAnswerSuccess(desc) {
 
   pc1.setLocalDescription(desc).then(
     function() {
-      console.log("LOOOOOOOOOOCAL");
       onSetLocalSuccess(pc2);
     },
     onSetSessionDescriptionError

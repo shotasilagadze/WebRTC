@@ -22,6 +22,9 @@ signaling.on('connection',function(socket){
 	socket.on('set answer desc', function(data) {
 		socket.broadcast.emit('set answer desc',data);
 	});
+	socket.on('add',function(data) {
+		console.log(data.x);
+	})
 
 });
 
